@@ -1,0 +1,50 @@
+// File: src/App.tsx
+import React from "react"
+import { Routes, Route, Navigate } from "react-router-dom"
+
+import Sidebar from "./components/layout/Sidebar"
+import LandingPage from "./pages/LandingPage"
+
+import DashboardPage from "./pages/DashboardPage"
+import EventsPage from "./pages/EventsPage"
+import TagsPage from "./pages/TagsPage"
+import DebugPage from "./pages/DebugPage"
+import SettingsPage from "./pages/SettingsPage"
+
+/* ================= APP LAYOUT ================= */
+function AppLayout() {
+  return (
+    <div className="flex h-screen">
+      <aside className="w-64 border-r bg-white">
+        <Sidebar />
+      </aside>
+
+      <main className="flex-1 overflow-auto bg-slate-50 p-6">
+        <Routes>
+          <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="events" element={<EventsPage />} />
+          <Route path="tags" element={<TagsPage />} />
+          <Route path="debug" element={<DebugPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+          <Route index element={<Navigate to="dashboard" replace />} />
+        </Routes>
+      </main>
+    </div>
+  )
+}
+
+/* ================= ROOT ROUTES ================= */
+export default function App() {
+  return (
+    <Routes>
+      {/* Landing page */}
+      <Route path="/" element={<LandingPage />} />
+
+      {/* App (with sidebar) */}
+      <Route path="/app/*" element={<AppLayout />} />
+
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  )
+}

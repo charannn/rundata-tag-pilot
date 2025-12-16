@@ -1,0 +1,22 @@
+<!-- File: test_page.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>TagPilot - Test Page</title>
+  <script src="/tagpilot-sdk.js"></script>
+  <style>
+    body{font-family:Arial;padding:20px}
+    button{padding:10px 14px;margin:6px;border-radius:6px;border:1px solid #ccc;cursor:pointer}
+  </style>
+</head>
+<body>
+  <h1>TagPilot Test Page</h1>
+  <p>Open the TagPilot Admin UI Debug page, turn Debug ON, then click these buttons.</p>
+
+  <button onclick="window.tagpilot.track('add_to_cart', { productId:'prd-123', quantity:1, price:49.99 })">Track: Add to cart</button>
+  <button onclick="window.tagpilot.track('purchase', { transactionId:'txn-001', value:99.9, currency:'USD' })">Track: Purchase</button>
+  <button onclick="window.tagpilot.identify('user-101', { email:'test@example.com', plan:'pro' })">Identify user</button>
+  <p>Reloading will fire a page_view automatically.</p>
+</body>
+</html>
