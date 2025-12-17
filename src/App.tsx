@@ -14,11 +14,13 @@ import SettingsPage from "./pages/SettingsPage"
 /* ================= APP LAYOUT ================= */
 function AppLayout() {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar */}
       <aside className="w-64 border-r bg-white">
         <Sidebar />
       </aside>
 
+      {/* Main content */}
       <main className="flex-1 overflow-auto bg-slate-50 p-6">
         <Routes>
           <Route path="dashboard" element={<DashboardPage />} />
@@ -26,6 +28,8 @@ function AppLayout() {
           <Route path="tags" element={<TagsPage />} />
           <Route path="debug" element={<DebugPage />} />
           <Route path="settings" element={<SettingsPage />} />
+
+          {/* Default /app → /app/dashboard */}
           <Route index element={<Navigate to="dashboard" replace />} />
         </Routes>
       </main>
@@ -37,13 +41,13 @@ function AppLayout() {
 export default function App() {
   return (
     <Routes>
-      {/* Landing page */}
+      {/* Marketing / Landing */}
       <Route path="/" element={<LandingPage />} />
 
-      {/* App (with sidebar) */}
+      {/* Application */}
       <Route path="/app/*" element={<AppLayout />} />
 
-      {/* Fallback */}
+      {/* Catch-all */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

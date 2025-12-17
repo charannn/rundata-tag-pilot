@@ -42,6 +42,6 @@ export const useTagPilotStore = create<State>()(
       addLiveEvent: (ev) => set(s => ({ liveEvents: [{ ...ev, id: uid('live-') }, ...s.liveEvents].slice(0, 200) })),
       clearLiveEvents: () => set({ liveEvents: [] })
     }),
-    { name: 'tagpilot-storage', whitelist: ['events', 'tags', 'settings'] }
+    { name: 'tagpilot-storage', partialize: (state) => ({ events: state.events, tags: state.tags, settings: state.settings }) }
   )
 )

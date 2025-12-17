@@ -12,10 +12,13 @@
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
+
     "baseUrl": "./src",
     "paths": {
       "~/*": ["./*"]
-    }
+    },
+
+    "types": ["node"]
   },
   "include": ["src", "server"]
 }
