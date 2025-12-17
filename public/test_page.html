@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TagPilot Test Page</title>
+    <script src="/tagpilot-sdk.js"></script>
+  </head>
+  <body>
+    <h1>Test Events</h1>
+
+    <button onclick="tagpilot.track('page_view')">
+      Page View
+    </button>
+
+    <button onclick="tagpilot.track('purchase', { value: 1999 })">
+      Purchase ₹1999
+    </button>
+
+    <button onclick="tagpilot.track('purchase', { value: 499 })">
+      Purchase ₹499
+    </button>
+  </body>
+</html>

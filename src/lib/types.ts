@@ -30,6 +30,7 @@ export interface LiveEvent {
   data: any
   ts: number
   firedTags?: string[]
+  notFiredTags?: string[]
 }
 
 export interface TagPilotQueueItem {

@@ -1,5 +1,4 @@
-// File: src/store/useTagPilotStore.ts
-import create from 'zustand'
+import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { EventDef, TagDef, TagPilotSettings, LiveEvent } from '../lib/types'
 import { uid } from '../lib/utils'
@@ -19,12 +18,33 @@ interface State {
 }
 
 const initialEvents: EventDef[] = [
-  { id: 'evt-1', name: 'purchase', description: 'Completed purchase', payloadStructure: { transactionId: 'string', value: 'number', currency: 'string' }, createdAt: Date.now() - 60000 },
-  { id: 'evt-2', name: 'add_to_cart', description: 'Added product to cart', payloadStructure: { productId: 'string', quantity: 'number' }, createdAt: Date.now() - 30000 }
+  {
+    id: 'evt-1',
+    name: 'purchase',
+    description: 'Completed purchase',
+    payloadStructure: { transactionId: 'string', value: 'number', currency: 'string' },
+    createdAt: Date.now() - 60000
+  },
+  {
+    id: 'evt-2',
+    name: 'add_to_cart',
+    description: 'Added product to cart',
+    payloadStructure: { productId: 'string', quantity: 'number' },
+    createdAt: Date.now() - 30000
+  }
 ]
 
 const initialTags: TagDef[] = [
-  { id: 'tag-1', name: 'FB Pixel - Purchase', description: 'FB purchase pixel', type: 'script', code: "console.log('FB Pixel fired', eventData)", triggerCondition: `event === "purchase"`, enabled: true, createdAt: Date.now() - 60000 }
+  {
+    id: 'tag-1',
+    name: 'FB Pixel - Purchase',
+    description: 'FB purchase pixel',
+    type: 'script',
+    code: "console.log('FB Pixel fired', eventData)",
+    triggerCondition: `event === "purchase"`,
+    enabled: true,
+    createdAt: Date.now() - 60000
+  }
 ]
 
 export const useTagPilotStore = create<State>()(
@@ -34,14 +54,50 @@ export const useTagPilotStore = create<State>()(
       tags: initialTags,
       settings: { debugMode: false },
       liveEvents: [],
-      addEvent: (ev) => set(s => ({ events: [...s.events, { ...ev, id: uid('evt-'), createdAt: Date.now() }] })),
-      deleteEvent: (id) => set(s => ({ events: s.events.filter(e => e.id !== id) })),
-      addTag: (tag) => set(s => ({ tags: [...s.tags, { ...tag, id: uid('tag-'), enabled: tag.enabled ?? true, createdAt: Date.now() }] })),
-      deleteTag: (id) => set(s => ({ tags: s.tags.filter(t => t.id !== id) })),
-      toggleDebugMode: () => set(s => ({ settings: { ...s.settings, debugMode: !s.settings.debugMode } })),
-      addLiveEvent: (ev) => set(s => ({ liveEvents: [{ ...ev, id: uid('live-') }, ...s.liveEvents].slice(0, 200) })),
+
+      addEvent: (ev) =>
+        set(s => ({
+          events: [...s.events, { ...ev, id: uid('evt-'), createdAt: Date.now() }]
+        })),
+
+      deleteEvent: (id) =>
+        set(s => ({ events: s.events.filter(e => e.id !== id) })),
+
+      addTag: (tag) =>
+        set(s => ({
+          tags: [
+            ...s.tags,
+            {
+              ...tag,
+              id: uid('tag-'),
+              enabled: tag.enabled ?? true,
+              createdAt: Date.now()
+            }
+          ]
+        })),
+
+      deleteTag: (id) =>
+        set(s => ({ tags: s.tags.filter(t => t.id !== id) })),
+
+      toggleDebugMode: () =>
+        set(s => ({
+          settings: { ...s.settings, debugMode: !s.settings.debugMode }
+        })),
+
+      addLiveEvent: (ev) =>
+        set(s => ({
+          liveEvents: [{ ...ev, id: uid('live-') }, ...s.liveEvents].slice(0, 200)
+        })),
+
       clearLiveEvents: () => set({ liveEvents: [] })
     }),
-    { name: 'tagpilot-storage', partialize: (state) => ({ events: state.events, tags: state.tags, settings: state.settings }) }
+    {
+      name: 'tagpilot-storage',
+      partialize: (state) => ({
+        events: state.events,
+        tags: state.tags,
+        settings: state.settings
+      })
+    }
   )
 )
