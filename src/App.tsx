@@ -4,7 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom"
 
 import Sidebar from "./components/layout/Sidebar"
 import LandingPage from "./pages/LandingPage"
-
+import RulesPage from "./pages/RulesPage"
 import DashboardPage from "./pages/DashboardPage"
 import EventsPage from "./pages/EventsPage"
 import TagsPage from "./pages/TagsPage"
@@ -26,6 +26,7 @@ function AppLayout() {
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="events" element={<EventsPage />} />
           <Route path="tags" element={<TagsPage />} />
+          <Route path="rules" element={<RulesPage />} />
           <Route path="debug" element={<DebugPage />} />
           <Route path="settings" element={<SettingsPage />} />
 

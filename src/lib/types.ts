@@ -1,3 +1,4 @@
+import { RuleResult } from "../rules/ruleTypes"
 // File: src/lib/types.ts
 export type EventPayload = Record<string, any>
 
@@ -18,7 +19,9 @@ export interface TagDef {
   triggerCondition: string
   enabled: boolean
   createdAt: number
+  ruleIds?: string[]
 }
+
 
 export interface TagPilotSettings {
   debugMode: boolean
@@ -29,8 +32,12 @@ export interface LiveEvent {
   event: string
   data: any
   ts: number
+
   firedTags?: string[]
   notFiredTags?: string[]
+
+  // ✅ NEW (Phase 2B)
+  ruleResults?: RuleResult[]
 }
 
 export interface TagPilotQueueItem {
@@ -38,3 +45,14 @@ export interface TagPilotQueueItem {
   data: any
   ts: number
 }
+
+export interface Tag {
+  id: string
+  name: string
+  enabled: boolean
+  triggerCondition: string
+
+  // NEW
+  ruleIds?: string[] // rules attached to this tag
+}
+
